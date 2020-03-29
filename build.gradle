@@ -17,6 +17,13 @@ dependencies {
     // SPRING
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
+    //KAFKA
+    implementation 'org.springframework.kafka:spring-kafka'
+
+    // LOMBOK
+    compileOnly 'org.projectlombok:lombok:1.18.10'
+    annotationProcessor 'org.projectlombok:lombok:1.18.10'
+
     //TESTING
     testCompile group: 'junit', name: 'junit', version: '4.12'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
