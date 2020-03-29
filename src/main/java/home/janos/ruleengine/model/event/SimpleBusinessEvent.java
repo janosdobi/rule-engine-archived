@@ -9,10 +9,10 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public class SimpleBusinessEvent<E extends BusinessEntity> extends BusinessEventBase<E> {
+public class SimpleBusinessEvent extends BusinessEventBase {
 
     @Builder
-    public SimpleBusinessEvent(long id, String key, E entity, LocalDateTime createdAt) {
+    public SimpleBusinessEvent(long id, String key, BusinessEntity entity, LocalDateTime createdAt) {
         super(id, key, entity, createdAt);
     }
 }

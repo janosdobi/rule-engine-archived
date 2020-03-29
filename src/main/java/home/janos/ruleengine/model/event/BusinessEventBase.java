@@ -12,10 +12,10 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class BusinessEventBase<E extends BusinessEntity> implements BusinessEvent<E> {
+public abstract class BusinessEventBase implements BusinessEvent {
 
     private long id;
     private String key;
-    private E entity;
+    private BusinessEntity entity;
     private LocalDateTime createdAt;
 }

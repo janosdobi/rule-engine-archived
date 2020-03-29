@@ -1,8 +1,11 @@
 package home.janos.ruleengine.service.consumer;
 
+import home.janos.ruleengine.exception.ExecutionContextException;
+import home.janos.ruleengine.model.context.ExecutionContext;
 import home.janos.ruleengine.model.entity.BusinessEntity;
 import home.janos.ruleengine.model.event.BusinessEvent;
 import home.janos.ruleengine.service.handler.BusinessEventHandler;
+import home.janos.ruleengine.util.BusinessContextUtil;
 import home.janos.ruleengine.util.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -24,17 +27,24 @@ public class BusinessEventListener {
         this.businessEventHandler = businessEventHandler;
     }
 
-    /*@KafkaListener(topics = {"${kafka.topic.business-event-input}"}, containerFactory = "mainKafkaListenerContainerFactory")
-    public void listen(@Payload final ConsumerRecord<String, BusinessEvent<? extends BusinessEntity>> consumerRecord,
+    //@KafkaListener(topics = {"${kafka.topic.business-event-input}"}, containerFactory = "mainKafkaListenerContainerFactory")
+    public boolean listen(@Payload final ConsumerRecord<String, BusinessEvent> consumerRecord,
                        @Headers final MessageHeaders headers) {
-        BusinessEvent<BusinessEntity> event = (BusinessEvent<BusinessEntity>) consumerRecord.value();
+        boolean res = false;
+        BusinessEvent event = consumerRecord.value();
 
         try {
-            if (businessEventHandler.handle(event)) {
+            final ExecutionContext context = BusinessContextUtil.getContextFromHeader(headers);
+            if (businessEventHandler.handle(event, context)) {
                 log.info(Constants.LogMessage.EVENT_HANDLED);
+                res = true;
             }
+        } catch (final ExecutionContextException ex) {
+            log.error(Constants.LogMessage.EXECUTION_CONTEXT_ERROR);
         } catch (Exception e) {
             log.error(Constants.LogMessage.EVENT_FAIL, e);
         }
-    }*/
+
+        return res;
+    }
 }

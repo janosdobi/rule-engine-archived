@@ -1,9 +1,11 @@
 package home.janos.ruleengine.controller;
 
+import home.janos.ruleengine.exception.ExecutionContextException;
 import home.janos.ruleengine.model.context.ExecutionContext;
 import home.janos.ruleengine.model.entity.SimpleBusinessEntity;
 import home.janos.ruleengine.model.event.SimpleBusinessEvent;
 import home.janos.ruleengine.service.handler.BusinessEventHandler;
+import home.janos.ruleengine.util.BusinessContextUtil;
 import home.janos.ruleengine.util.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,20 +32,18 @@ public class RestTestingEndpoint {
 
     @PostMapping("/test")
     public ResponseEntity<Void> test(@RequestHeader Map<String, String> headers,
-                                     @RequestBody @NotNull SimpleBusinessEvent<SimpleBusinessEntity> event) {
+                                     @RequestBody @NotNull SimpleBusinessEvent event) {
         ResponseEntity<Void> responseEntity = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 
-        ExecutionContext context = ExecutionContext.builder()
-                .userId(headers.get(Constants.USER_ID))
-                .contextIdentifier(headers.get(Constants.CONTEXT_IDENTIFIER))
-                .build();
-
         try {
+            final ExecutionContext context = BusinessContextUtil.getContextFromHeader(headers);
             if (businessEventHandler.handle(event, context)) {
                 responseEntity = ResponseEntity.ok().build();
                 log.info(Constants.LogMessage.EVENT_HANDLED);
             }
-        } catch (Exception e) {
+        } catch (final ExecutionContextException e) {
+            log.error(Constants.LogMessage.EXECUTION_CONTEXT_ERROR);
+        } catch (final Exception e) {
             log.error(Constants.LogMessage.EVENT_FAIL, e);
         }
 

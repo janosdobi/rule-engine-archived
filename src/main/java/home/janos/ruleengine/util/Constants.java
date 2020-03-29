@@ -7,6 +7,8 @@ public class Constants {
     private Constants() { }
 
     public static final class LogMessage {
+        public static final String EXECUTION_CONTEXT_ERROR = "Error during building execution context.";
+
         private LogMessage(){}
 
         public static final String EVENT_FAIL = "Event handling failed.";
