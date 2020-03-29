@@ -1,17 +1,17 @@
 package home.janos.ruleengine.model.entity;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = true)
 @Getter
+@Setter
+@NoArgsConstructor
 public class SimpleBusinessEntity extends BusinessEntityBase {
 
-    private final String validatedString;
-    private final double validatedDouble;
+    private String validatedString;
+    private double validatedDouble;
 
     @Builder
     public SimpleBusinessEntity(long id, LocalDateTime createdAt, String validatedString, double validatedDouble) {

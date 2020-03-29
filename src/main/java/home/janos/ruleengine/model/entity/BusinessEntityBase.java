@@ -1,12 +1,16 @@
 package home.janos.ruleengine.model.entity;
 
-import lombok.AllArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public abstract class BusinessEntityBase implements BusinessEntity {
 
-    private final long id;
-    private final LocalDateTime createdAt;
+    private long id;
+    private LocalDateTime createdAt;
+
 }

@@ -1,7 +1,8 @@
 package home.janos.ruleengine.config;
 
+import home.janos.ruleengine.model.entity.BusinessEntity;
 import home.janos.ruleengine.model.event.BusinessEvent;
-import home.janos.ruleengine.model.result.RuleResult;
+import home.janos.ruleengine.model.result.EngineResult;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -31,18 +32,18 @@ public class KafkaConfiguration {
     private String groupId;
 
     @Bean
-    public KafkaTemplate<String, RuleResult> kafkaTemplate() {
+    public KafkaTemplate<String, EngineResult> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 
     @Bean
-    public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, BusinessEvent>> mainKafkaListenerContainerFactory() {
-        final ConcurrentKafkaListenerContainerFactory<String, BusinessEvent> factory = new ConcurrentKafkaListenerContainerFactory<>();
+    public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, BusinessEvent<BusinessEntity>>> mainKafkaListenerContainerFactory() {
+        final ConcurrentKafkaListenerContainerFactory<String, BusinessEvent<BusinessEntity>> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         return factory;
     }
 
-    private ConsumerFactory<String, BusinessEvent> consumerFactory() {
+    private ConsumerFactory<String, BusinessEvent<BusinessEntity>> consumerFactory() {
         final Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
@@ -53,7 +54,7 @@ public class KafkaConfiguration {
     }
 
 
-    private ProducerFactory<String, RuleResult> producerFactory() {
+    private ProducerFactory<String, EngineResult> producerFactory() {
         final Map<String, Object> props = new HashMap<>();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);

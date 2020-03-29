@@ -6,14 +6,15 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
 @Getter
 @Setter
-public class SimpleRuleResult extends RuleResultBase {
+public class SimpleEngineResult extends EngineResultBase {
 
     @Builder
-    public SimpleRuleResult(boolean isValid, String validationMessage, LocalDateTime validatedAt) {
-        super(isValid, validationMessage, validatedAt);
+    public SimpleEngineResult(long id, LocalDateTime createdAt, Set<RuleResult> ruleResults) {
+        super(id, createdAt, ruleResults);
     }
 }
