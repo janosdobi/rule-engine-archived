@@ -1,6 +1,7 @@
 package home.janos.ruleengine.config;
 
 import home.janos.ruleengine.model.event.BusinessEvent;
+import home.janos.ruleengine.model.result.RuleResult;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -30,7 +31,7 @@ public class KafkaConfiguration {
     private String groupId;
 
     @Bean
-    public KafkaTemplate<String, BusinessEvent> kafkaTemplate() {
+    public KafkaTemplate<String, RuleResult> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 
@@ -52,7 +53,7 @@ public class KafkaConfiguration {
     }
 
 
-    private ProducerFactory<String, BusinessEvent> producerFactory() {
+    private ProducerFactory<String, RuleResult> producerFactory() {
         final Map<String, Object> props = new HashMap<>();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
