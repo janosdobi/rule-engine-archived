@@ -1,5 +1,6 @@
 package home.janos.ruleengine.model.rule;
 
+import home.janos.ruleengine.model.context.ExecutionType;
 import home.janos.ruleengine.model.entity.BusinessEntity;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -9,10 +10,9 @@ import java.util.function.Predicate;
 
 @EqualsAndHashCode(callSuper = true)
 @Getter
-public class SimpleBusinessRule extends BusinessRuleBase {
+public class SimpleBusinessRule<E extends BusinessEntity> extends BusinessRuleBase<E> {
 
-    @Builder
-    public SimpleBusinessRule(final Predicate<BusinessEntity> predicate, final String invalidMessage) {
-        super(predicate, invalidMessage);
+    public SimpleBusinessRule(ExecutionType executionType, Predicate<E> predicate, String invalidMessage) {
+        super(executionType, predicate, invalidMessage);
     }
 }

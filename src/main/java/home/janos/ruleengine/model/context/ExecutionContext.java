@@ -9,4 +9,5 @@ public class ExecutionContext {
 
     private final String userId;
     private final String contextIdentifier;
+    private final ExecutionType executionType;
 }

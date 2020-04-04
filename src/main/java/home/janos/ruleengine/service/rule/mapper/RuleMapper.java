@@ -1,4 +1,4 @@
-package home.janos.ruleengine.service.mapper;
+package home.janos.ruleengine.service.rule.mapper;
 
 import home.janos.ruleengine.model.context.ExecutionContext;
 import home.janos.ruleengine.model.entity.BusinessEntity;

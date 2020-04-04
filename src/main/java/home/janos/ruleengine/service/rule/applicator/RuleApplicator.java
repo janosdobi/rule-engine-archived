@@ -1,4 +1,4 @@
-package home.janos.ruleengine.service;
+package home.janos.ruleengine.service.rule.applicator;
 
 import home.janos.ruleengine.model.entity.BusinessEntity;
 import home.janos.ruleengine.model.result.EngineResult;

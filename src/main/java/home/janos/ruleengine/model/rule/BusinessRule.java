@@ -1,12 +1,15 @@
 package home.janos.ruleengine.model.rule;
 
+import home.janos.ruleengine.model.context.ExecutionType;
 import home.janos.ruleengine.model.entity.BusinessEntity;
 
 import java.util.function.Predicate;
 
-public interface BusinessRule {
+public interface BusinessRule<E extends BusinessEntity> {
 
-    Predicate<BusinessEntity> getPredicate();
+    Predicate<E> getPredicate();
 
     String getInvalidMessage();
+
+    ExecutionType getExecutionType();
 }
