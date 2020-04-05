@@ -8,5 +8,5 @@ import java.util.Collection;
 import java.util.Set;
 
 public interface RuleMapper {
-    Set<BusinessRule> getApplicableRules(final Collection<BusinessEntity> entities, final ExecutionContext context);
+    Set<BusinessRule<BusinessEntity>> getApplicableRules(final Collection<BusinessEntity> entities, final ExecutionContext context);
 }

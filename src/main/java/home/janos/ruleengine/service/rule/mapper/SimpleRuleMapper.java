@@ -25,9 +25,9 @@ public class SimpleRuleMapper implements RuleMapper {
     }
 
     @Override
-    public Set<BusinessRule> getApplicableRules(final Collection<BusinessEntity> entities, final ExecutionContext context) {
+    public Set<BusinessRule<BusinessEntity>> getApplicableRules(final Collection<BusinessEntity> entities, final ExecutionContext context) {
         //TODO implement mapping logic
-        Set<BusinessRule> ruleSet = new HashSet<>();
+        Set<BusinessRule<BusinessEntity>> ruleSet = new HashSet<>();
 
         ruleSet.addAll(businessRules.getRulesForType(context.getExecutionType()));
 

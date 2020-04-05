@@ -8,5 +8,5 @@ import java.util.Set;
 
 public interface RuleApplicator {
 
-    EngineResult applyRules(final Set<BusinessRule> rules, final BusinessEntity entity);
+    EngineResult applyRules(final Set<BusinessRule<BusinessEntity>> rules, final BusinessEntity entity);
 }

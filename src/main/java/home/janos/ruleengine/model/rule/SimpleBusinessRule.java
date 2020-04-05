@@ -2,17 +2,19 @@ package home.janos.ruleengine.model.rule;
 
 import home.janos.ruleengine.model.context.ExecutionType;
 import home.janos.ruleengine.model.entity.BusinessEntity;
-import lombok.Builder;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.ToString;
 
+import java.util.Set;
 import java.util.function.Predicate;
 
 @EqualsAndHashCode(callSuper = true)
-@Getter
+@ToString(callSuper = true)
+@Data
 public class SimpleBusinessRule<E extends BusinessEntity> extends BusinessRuleBase<E> {
 
-    public SimpleBusinessRule(ExecutionType executionType, Predicate<E> predicate, String invalidMessage) {
-        super(executionType, predicate, invalidMessage);
+    public SimpleBusinessRule(ExecutionType executionType, Set<Predicate<E>> predicates, String invalidMessage) {
+        super(executionType, predicates, invalidMessage);
     }
 }

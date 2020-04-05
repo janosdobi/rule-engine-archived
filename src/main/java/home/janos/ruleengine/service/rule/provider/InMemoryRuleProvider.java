@@ -1,13 +1,14 @@
 package home.janos.ruleengine.service.rule.provider;
 
 import home.janos.ruleengine.model.context.ExecutionType;
-import home.janos.ruleengine.model.entity.SimpleBusinessEntity;
+import home.janos.ruleengine.model.entity.BusinessEntity;
 import home.janos.ruleengine.model.rule.BusinessRule;
 import home.janos.ruleengine.model.rule.SimpleBusinessRule;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Predicate;
 
 @Component
 public class InMemoryRuleProvider implements RuleProvider {
@@ -16,10 +17,11 @@ public class InMemoryRuleProvider implements RuleProvider {
     @SuppressWarnings("rawtypes")
     public Set<BusinessRule> getRules() {
         Set<BusinessRule> rules = new HashSet<>();
+        Set<Predicate<BusinessEntity>> predicates = new HashSet<>();
 
-        BusinessRule<SimpleBusinessEntity> ruleExample = new SimpleBusinessRule<>(
+        BusinessRule<BusinessEntity> ruleExample = new SimpleBusinessRule<>(
                 ExecutionType.TYPE_A,
-                simpleBusinessEntity -> simpleBusinessEntity.getValidatedDouble() > 500,
+                predicates,
                 "Field must be greater than 500!");
 
         rules.add(ruleExample);

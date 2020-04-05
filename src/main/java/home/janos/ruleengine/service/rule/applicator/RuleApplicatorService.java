@@ -20,15 +20,19 @@ import java.util.function.Predicate;
 public class RuleApplicatorService implements RuleApplicator {
 
     @Override
-    public EngineResult applyRules(final Set<BusinessRule> rules, final BusinessEntity entity) {
+    public EngineResult applyRules(final Set<BusinessRule<BusinessEntity>> rules, final BusinessEntity entity) {
         final Set<RuleResult> ruleResults = new HashSet<>();
 
         log.info(Constants.LogMessage.APPLYING_RULES, entity);
-        for (final BusinessRule rule: rules) {
+        for (final BusinessRule<BusinessEntity> rule: rules) {
             log.debug(Constants.LogMessage.APPLYING_RULE, rule);
-            final Predicate<BusinessEntity> predicate = rule.getPredicate();
+            final Set<Predicate<BusinessEntity>> predicates = rule.getPredicates();
 
-            boolean isValid = predicate.test(entity);
+            boolean isValid = false;
+
+            for (final Predicate<BusinessEntity> predicate : predicates) {
+                isValid &= predicate.test(entity);
+            }
 
             final RuleResult ruleResult = SimpleRuleResult.builder()
                     .isValid(isValid)
