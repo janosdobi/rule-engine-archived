@@ -2,6 +2,7 @@ package home.janos.ruleengine.controller;
 
 import home.janos.ruleengine.exception.ExecutionContextException;
 import home.janos.ruleengine.model.context.ExecutionContext;
+import home.janos.ruleengine.model.context.ExecutionType;
 import home.janos.ruleengine.model.entity.SimpleBusinessEntity;
 import home.janos.ruleengine.model.event.SimpleBusinessEvent;
 import home.janos.ruleengine.service.handler.BusinessEventHandler;
@@ -37,6 +38,10 @@ public class RestTestingEndpoint {
 
         try {
             final ExecutionContext context = BusinessContextUtil.getContextFromHeader(headers);
+
+            //hardcode it for testing purposes
+            context.setExecutionType(ExecutionType.TYPE_A);
+
             if (businessEventHandler.handle(event, context)) {
                 responseEntity = ResponseEntity.ok().build();
                 log.info(Constants.LogMessage.EVENT_HANDLED);

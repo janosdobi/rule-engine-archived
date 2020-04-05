@@ -1,15 +1,12 @@
 package home.janos.ruleengine.model.result;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = true)
-@Getter
-@Setter
+@ToString(callSuper = true)
+@Data
 public class SimpleRuleResult extends RuleResultBase {
 
     @Builder
@@ -17,3 +14,6 @@ public class SimpleRuleResult extends RuleResultBase {
         super(isValid, validationMessage, validatedAt);
     }
 }
+
+
+

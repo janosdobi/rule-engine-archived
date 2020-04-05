@@ -6,8 +6,8 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = true)
-@Getter
-@Setter
+@ToString(callSuper = true)
+@Data
 @NoArgsConstructor
 public class SimpleBusinessEvent extends BusinessEventBase {
 
