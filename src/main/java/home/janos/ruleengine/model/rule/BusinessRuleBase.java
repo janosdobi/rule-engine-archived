@@ -15,6 +15,7 @@ import java.util.function.Predicate;
 public abstract class BusinessRuleBase<E extends BusinessEntity> implements BusinessRule<E> {
 
     private ExecutionType executionType; // etc. further fields might be added which can provide basis for rule-clusters
-    private Set<Predicate<E>> predicates;
+    private Set<String> applicableForType;
+    private Predicate<E> predicate;
     private String invalidMessage;
 }

@@ -26,13 +26,9 @@ public class RuleApplicatorService implements RuleApplicator {
         log.info(Constants.LogMessage.APPLYING_RULES, entity);
         for (final BusinessRule<BusinessEntity> rule: rules) {
             log.debug(Constants.LogMessage.APPLYING_RULE, rule);
-            final Set<Predicate<BusinessEntity>> predicates = rule.getPredicates();
+            final Predicate<BusinessEntity> predicate = rule.getPredicate();
 
-            boolean isValid = false;
-
-            for (final Predicate<BusinessEntity> predicate : predicates) {
-                isValid &= predicate.test(entity);
-            }
+            boolean isValid = predicate.test(entity);
 
             final RuleResult ruleResult = SimpleRuleResult.builder()
                     .isValid(isValid)

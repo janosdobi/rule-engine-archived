@@ -14,11 +14,13 @@ public class SimpleBusinessEntity extends BusinessEntityBase {
 
     private String validatedString;
     private double validatedDouble;
+    private String entityType;
 
     @Builder
-    public SimpleBusinessEntity(long id, LocalDateTime createdAt, String validatedString, double validatedDouble) {
+    public SimpleBusinessEntity(long id, LocalDateTime createdAt, String validatedString, double validatedDouble, String entityType) {
         super(id, createdAt);
         this.validatedString = validatedString;
         this.validatedDouble = validatedDouble;
+        this.entityType = entityType;
     }
 }

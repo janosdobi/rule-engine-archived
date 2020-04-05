@@ -37,7 +37,7 @@ public class SimpleBusinessEventHandler implements BusinessEventHandler {
     public boolean handle(BusinessEvent event, final ExecutionContext context) {
         final BusinessEntity businessEntity = event.getEntity();
 
-        //TODO for now. complex validation cases to be implemented - with multiple entities
+        //TODO for now. complex validation cases to be implemented - with multiple entities - from which some might be retrieved from database
         Collection<BusinessEntity> entities = Collections.singletonList(businessEntity);
 
         final Set<BusinessRule<BusinessEntity>> rulesToBeApplied = ruleMapper.getApplicableRules(entities, context);

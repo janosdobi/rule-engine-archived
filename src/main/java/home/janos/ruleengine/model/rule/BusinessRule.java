@@ -8,9 +8,11 @@ import java.util.function.Predicate;
 
 public interface BusinessRule<E extends BusinessEntity> {
 
-    Set<Predicate<E>> getPredicates();
+    Predicate<E> getPredicate();
 
     String getInvalidMessage();
 
     ExecutionType getExecutionType();
+
+    Set<String> getApplicableForType();
 }
